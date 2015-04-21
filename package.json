@@ -1,0 +1,22 @@
+{
+  "name": "bs-mock",
+  "version": "0.0.1",
+  "description": "BrowserSync middleware mock",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mock"
+  ],
+  "author": "grzesiekw <g.wilkowicz@gmail.com>",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "gulp": "3.8.11",
+    "gulp-jshint": "1.10.0",
+    "gulp-jasmine": "2.0.1",
+    "gulp-watch": "4.2.4"
+  },
+  "license": "ISC"
+}
