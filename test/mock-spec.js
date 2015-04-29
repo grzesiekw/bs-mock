@@ -6,10 +6,17 @@ describe("BSMock", function() {
     var mock = bsMock.init({dir: 'test/mocks'});
 
     var getDataRequest = {"method": "GET", "url": "/data"};
+    var getJsonDataRequest = {"method": "GET", "url": "/jsonData", "headers": {"Accept": "application/json"}};
     var postDataRequest = {"method": "POST", "url": "/data"};
 
     it("should support 'GET /data' request", function() {
         var supports = mock.supports(getDataRequest);
+
+        expect(supports).toBe(true);
+    });
+
+    it("should support 'GET with header' request", function () {
+        var supports = mock.supports(getJsonDataRequest);
 
         expect(supports).toBe(true);
     });

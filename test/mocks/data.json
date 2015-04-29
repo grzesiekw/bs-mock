@@ -1,0 +1,39 @@
+[
+  {
+    "request": {
+      "method": "GET",
+      "url": "/data"
+    },
+    "response": {
+      "statusCode": 200,
+      "headers": [
+        {
+          "Content-Type": "application/json"
+        }
+      ],
+      "data": {
+        "a": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "url": "/jsonData",
+      "headers": {
+        "Accept": "application/json"
+      }
+    },
+    "response": {
+      "statusCode": 200,
+      "headers": [
+        {
+          "Content-Type": "application/json"
+        }
+      ],
+      "data": {
+        "a": 1
+      }
+    }
+  }
+]

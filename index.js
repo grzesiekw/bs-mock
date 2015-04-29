@@ -21,9 +21,9 @@ var BSMock = function (opts) {
         files = opts.files;
     }
 
-    mock.mocks = files.map(function (file) {
+    mock.mocks = flatten(files.map(function (file) {
         return JSON.parse(fs.readFileSync(file, 'utf-8'));
-    });
+    }));
 };
 
 BSMock.prototype.process = function (request, response) {
@@ -45,7 +45,7 @@ BSMock.prototype.supports = function (request) {
     return findResponse(mock.mocks, request) != undefined;
 };
 
-function findResponse (mocks, request) {
+function findResponse(mocks, request) {
     if (mocks) {
         for (var i = 0; i < mocks.length; i++) {
             if (match(mocks[i].request, request)) {
@@ -59,8 +59,16 @@ function findResponse (mocks, request) {
 
 function match(mockRequest, request) {
     for (var p in mockRequest) {
-        if (mockRequest.hasOwnProperty(p) && mockRequest[p] != request[p]) {
-            return false;
+        if (mockRequest.hasOwnProperty(p)) {
+            var mockProperty = mockRequest[p];
+
+            if (typeof mockProperty == 'object') {
+                if (!match(mockProperty, request[p])) {
+                    return false;
+                }
+            } else if (mockProperty != request[p]) {
+                return false;
+            }
         }
     }
 
@@ -95,4 +103,10 @@ function setData(mockResponse, response) {
     } else {
         response.end();
     }
+}
+
+// util
+
+function flatten(array) {
+    return [].concat.apply([], array);
 }
