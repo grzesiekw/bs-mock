@@ -61,12 +61,13 @@ function match(mockRequest, request) {
     for (var p in mockRequest) {
         if (mockRequest.hasOwnProperty(p)) {
             var mockProperty = mockRequest[p];
+            var requestProperty = request[p];
 
             if (typeof mockProperty == 'object') {
-                if (!match(mockProperty, request[p])) {
+                if (!match(mockProperty, requestProperty)) {
                     return false;
                 }
-            } else if (mockProperty != request[p]) {
+            } else if (mockProperty != requestProperty) {
                 return false;
             }
         }
