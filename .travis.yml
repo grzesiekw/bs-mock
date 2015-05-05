@@ -4,3 +4,5 @@ node_js:
 before_script:
   - npm install -g gulp
 script: gulp
+after_script:
+  - istanbul cover jasmine-node --captureExceptions test/ && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
