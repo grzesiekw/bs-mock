@@ -18,7 +18,8 @@
     "gulp-jasmine": "2.0.1",
     "gulp-watch": "4.2.4",
     "coveralls": "2.11.2",
-    "istanbul": "0.3.13"
+    "istanbul": "0.3.13",
+    "jasmine-node": "1.14.5"
   },
   "license": "ISC"
 }
