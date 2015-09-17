@@ -57,6 +57,8 @@ function findResponse(mocks, request) {
     return null;
 }
 
+var defaultStatusCode = 200;
+
 function match(mockRequest, request) {
     for (var p in mockRequest) {
         if (mockRequest.hasOwnProperty(p)) {
@@ -67,7 +69,7 @@ function match(mockRequest, request) {
                 if (!match(mockProperty, requestProperty)) {
                     return false;
                 }
-            } else if (mockProperty != requestProperty) {
+            } else if (notMatch(p, mockProperty, requestProperty)) {
                 return false;
             }
         }
@@ -76,8 +78,16 @@ function match(mockRequest, request) {
     return true;
 }
 
+function notMatch(propertyName, mockValue, requestValue) {
+  if (propertyName == 'url') {
+    return new RegExp(mockValue).exec(requestValue) == null;
+  } else {
+    return mockValue != requestValue;
+  }
+}
+
 function prepareResponse(mockResponse, response) {
-    response.statusCode = mockResponse.statusCode;
+    response.statusCode = mockResponse.statusCode | defaultStatusCode;
 
     setHeaders(mockResponse, response);
     setData(mockResponse, response);

@@ -6,6 +6,7 @@ describe("BSMock", function() {
     var mock = bsMock.init({dir: 'test/mocks'});
 
     var getDataRequest = {"method": "GET", "url": "/data"};
+    var getDataRegExpRequest = {"method": "GET", "url": "/data/A"};
     var getJsonDataRequest = {"method": "GET", "url": "/jsonData", "headers": {"Accept": "application/json"}};
     var postDataRequest = {"method": "POST", "url": "/data"};
 
@@ -13,6 +14,12 @@ describe("BSMock", function() {
         var supports = mock.supports(getDataRequest);
 
         expect(supports).toBe(true);
+    });
+
+    it("should support regexp in request url", function () {
+      var supports = mock.supports(getDataRegExpRequest);
+
+      expect(supports).toBe(true);
     });
 
     it("should support 'GET with header' request", function () {
@@ -31,6 +38,14 @@ describe("BSMock", function() {
         var response = responseSpy();
 
         mock.process(getDataRequest, response);
+
+        expect(response.statusCode).toBe(200);
+    });
+
+    it("should fill in default statusCode '200' if not specified", function () {
+        var response = responseSpy();
+
+        mock.process(getJsonDataRequest, response);
 
         expect(response.statusCode).toBe(200);
     });
